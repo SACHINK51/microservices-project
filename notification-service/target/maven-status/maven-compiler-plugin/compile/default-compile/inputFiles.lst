@@ -1,0 +1,5 @@
+C:\Users\Dell\eclipse-workspace\microservices-new\notification-service\src\main\java\com\microservices\notification_service\config\JacksonConfig.java
+C:\Users\Dell\eclipse-workspace\microservices-new\notification-service\src\main\java\com\microservices\notification_service\config\KafkaConsumerConfig.java
+C:\Users\Dell\eclipse-workspace\microservices-new\notification-service\src\main\java\com\microservices\notification_service\kafka\NotificationConsumer.java
+C:\Users\Dell\eclipse-workspace\microservices-new\notification-service\src\main\java\com\microservices\notification_service\model\OrderPlacedEvent.java
+C:\Users\Dell\eclipse-workspace\microservices-new\notification-service\src\main\java\com\microservices\notification_service\NotificationServiceApplication.java

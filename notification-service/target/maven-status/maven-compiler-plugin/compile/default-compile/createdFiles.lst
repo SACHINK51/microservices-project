@@ -1,0 +1,5 @@
+com\microservices\notification_service\NotificationServiceApplication.class
+com\microservices\notification_service\config\KafkaConsumerConfig.class
+com\microservices\notification_service\model\OrderPlacedEvent.class
+com\microservices\notification_service\kafka\NotificationConsumer.class
+com\microservices\notification_service\config\JacksonConfig.class
