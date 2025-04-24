@@ -1,0 +1,16 @@
+com\microservice\order_service\order_service\service\OrderService.class
+com\microservice\order_service\order_service\dto\InventoryResponse.class
+com\microservice\order_service\order_service\model\OrderLineItems$OrderLineItemsBuilder.class
+com\microservice\order_service\order_service\controller\OrderController.class
+com\microservice\order_service\order_service\service\KafkaMessagePublisher.class
+com\microservice\order_service\order_service\dto\OrderLineItemsDto.class
+com\microservice\order_service\order_service\model\Order.class
+com\microservice\order_service\order_service\OrderServiceApplication.class
+com\microservice\order_service\order_service\repository\OrderRepository.class
+com\microservice\order_service\order_service\config\WebClientConfig.class
+com\microservice\order_service\order_service\model\OrderLineItems.class
+com\microservice\order_service\order_service\model\OrderPlacedEvent.class
+com\microservice\order_service\order_service\config\KafkaProducerConfig.class
+com\microservice\order_service\order_service\dto\InventoryResponse$InventoryResponseBuilder.class
+com\microservice\order_service\order_service\model\Order$OrderBuilder.class
+com\microservice\order_service\order_service\dto\OrderRequest.class
