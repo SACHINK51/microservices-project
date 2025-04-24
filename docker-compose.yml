@@ -1,0 +1,110 @@
+version: '3.8'
+
+services:
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.4.0
+    container_name: zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - "2181:2181"
+
+  kafka:
+    image: confluentinc/cp-kafka:7.4.0
+    container_name: kafka
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: Qpalzm@20
+      MYSQL_DATABASE: productservice
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - default
+
+  discovery-server:
+    build: ./discovery-server
+    ports:
+      - "8761:8761"
+    container_name: discovery-server
+
+  api-gateway:
+    build: ./api-gateway
+    ports:
+      - "8080:8080"
+    container_name: api-gateway
+    depends_on:
+      - discovery-server
+
+  order-service:
+    build: ./order-service
+    ports:
+      - "8081:8081"
+    container_name: order-service
+    depends_on:
+      - mysql
+      - kafka
+      - discovery-server
+
+  product-service:
+    build: ./product-service
+    ports:
+      - "8082:8082"
+    container_name: product-service
+    depends_on:
+      - discovery-server
+
+  inventory-service:
+    build: ./inventory-service
+    ports:
+      - "8083:8083"
+    container_name: inventory-service
+    depends_on:
+      - discovery-server
+
+  notification-service:
+    build: ./notification-service
+    ports:
+      - "8084:8084"
+    container_name: notification-service
+    depends_on:
+      - kafka
+      - discovery-server
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+    depends_on:
+      - order-service
+      - product-service
+      - inventory-service
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./monitoring/grafana:/var/lib/grafana
+    depends_on:
+      - prometheus
